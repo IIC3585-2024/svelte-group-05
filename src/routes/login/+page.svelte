@@ -1,17 +1,16 @@
 <script>
-	import { onMount } from 'svelte';
 	import { goto } from '$app/navigation';
 
 	export let data;
-	let { supabase, session } = data;
-	$: ({ supabase, session } = data);
+	let { supabase } = data;
+	$: ({ supabase } = data);
 
 	let email = '';
 	let password = '';
 	let errorMessage = '';
 
 	async function login() {
-		const { user, error } = await supabase.auth.signInWithPassword({
+		const { error } = await supabase.auth.signInWithPassword({
 			email,
 			password
 		});

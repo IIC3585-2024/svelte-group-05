@@ -1,23 +1,26 @@
 import { writable } from 'svelte/store';
 import { supabase } from '../supabaseClient';
+import type { Task } from '../ts/interfaces';
 
 function createTasksStore() {
 
-    async function fetchTasks () {
+    async function fetchTasks (userId: string) : Promise<Task[]> {
         const { data, error } = await supabase
             .from('tasks')
-            .select();
+            .select()
+            .eq('userId', userId)
+
         if (error) {
             console.error('Error fetching tasks:', error.message);
             return [];
         }
         return data;
     }
-    const { subscribe, set, update } = writable([]);
+    const { subscribe, set, update } = writable<Task[]>([]);
 
     return {
         subscribe,
-        add: async (task) => {
+        add: async (task: Task) => {
             const { data, error } = await supabase
                 .from('tasks')
                 .insert(task)
@@ -28,7 +31,7 @@ function createTasksStore() {
                 update((tasks) => [...tasks, data[0]]);
             }
         },
-        delete: async (id) => {
+        delete: async (id: string) => {
             const { error } = await supabase
                 .from('tasks')
                 .delete()
@@ -39,8 +42,8 @@ function createTasksStore() {
                 update((tasks) => tasks.filter((task) => task.id !== id));
             }
         },
-        fetch: async () => {
-            const tasks = await fetchTasks();
+        fetch: async (userId: string) => {
+            const tasks = await fetchTasks(userId);
             set(tasks);
         }
     };

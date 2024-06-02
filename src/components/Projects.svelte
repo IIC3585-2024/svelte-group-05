@@ -1,6 +1,8 @@
-<script>
+<script lang="ts">
   import { projects } from "../stores/projects";
-  export let project;
+  import type { Project } from "../ts/interfaces";
+
+  export let project: Project;
 </script>
 
 <select bind:value={project} class="p-2 border rounded-lg">

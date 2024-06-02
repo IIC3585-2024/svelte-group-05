@@ -4,8 +4,8 @@
 
   export let data;
 
-  let { supabase, session } = data;
-  $: ({ supabase, session } = data);
+  let { session } = data;
+  $: ({ session } = data);
 </script>
 
 <main class="p-6">
@@ -19,7 +19,7 @@
       <p class="text-lg text-gray-700">Sign up or log in to get started.</p>
     </div>
   {:else}
-    <NewTask {supabase} />
-    <TaskList {supabase} />
+    <NewTask {session} />
+    <TaskList />
   {/if}
 </main>

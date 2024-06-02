@@ -5,7 +5,7 @@
   import { projects } from "../../stores/projects";
   import { format } from "date-fns";
 
-  export let supabase;
+  export let session;
 
   let possibleLabels = [
     { id: 1, name: "ocio" },
@@ -23,36 +23,53 @@
   let running = false;
   let elapsedTime = 0;
   let interval: NodeJS.Timeout;
+  let onlyTime: boolean = true;
+
+  function clear() {
+    name = "";
+    project = null;
+    labels = [];
+    startTime = null;
+    stopTime = null;
+    startDate = new Date();
+    stopDate = new Date();
+    running = false;
+    elapsedTime = 0;
+    clearInterval(interval);
+  }
 
   function handleClick() {
-    if (!running) {
-      startTime = new Date();
-      elapsedTime = 0;
-      running = true;
-      interval = setInterval(() => {
-        elapsedTime = new Date().getTime() - startTime.getTime();
-      }, 1000);
+    if (onlyTime) {
+      if (!running) {
+        startTime = new Date();
+        elapsedTime = 0;
+        running = true;
+        interval = setInterval(() => {
+          elapsedTime = new Date().getTime() - startTime.getTime();
+        }, 1000);
+      } else {
+        stopTime = new Date();
+        running = false;
+        addTask();
+      }
     } else {
-      stopTime = new Date();
-      running = false;
       addTask();
-      clearInterval(interval);
     }
   }
+
   function addTask() {
     const newTask = {
       name,
+      userId: session.user.id,
       projectId: project?.id,
-      startTime: format(startTime, "HH:mm:ss"),
-      stopTime: format(stopTime, "HH:mm:ss"),
+      startTime: onlyTime ? format(startTime, "HH:mm:ss") : startTime,
+      stopTime: onlyTime ? format(stopTime, "HH:mm:ss") : stopTime,
       startDate: format(startDate, "yyyy-MM-dd"),
       stopDate: format(stopDate, "yyyy-MM-dd"),
     };
     tasks.add(newTask);
 
-    name = "";
-    project = null;
-    labels = [];
+    clear();
   }
 </script>
 
@@ -68,21 +85,58 @@
 
     <Labels {possibleLabels} bind:labels />
 
-    <div>
-      {#if running}
-        {new Date(elapsedTime).toISOString().slice(11, 19)}
-      {:else}
-        00:00:00
-      {/if}
-    </div>
+    {#if onlyTime}
+      <div>
+        {#if running}
+          {new Date(elapsedTime).toISOString().slice(11, 19)}
+        {:else}
+          00:00:00
+        {/if}
+      </div>
+    {:else}
+      <div class="flex items-center space-x-1">
+        <input
+          type="time"
+          bind:value={startTime}
+          class="p-2 border rounded-lg"
+        />
+        <input
+          type="time"
+          bind:value={stopTime}
+          class="p-2 border rounded-lg"
+        />
 
+        <input
+          type="date"
+          bind:value={startDate}
+          class="p-2 border rounded-lg"
+          max={format(new Date(), "yyyy-MM-dd")}
+        />
+        <input
+          type="date"
+          bind:value={stopDate}
+          class="p-2 border rounded-lg"
+          max={format(new Date(), "yyyy-MM-dd")}
+        />
+      </div>
+    {/if}
     <button
       on:click={handleClick}
       class="px-4 py-2 {running
         ? 'bg-red-500'
         : 'bg-green-500'} text-white rounded-lg"
     >
-      {running ? "Stop" : "Start"}
+      {#if onlyTime}
+        {running ? "Stop" : "Start"}
+      {:else}
+        Save
+      {/if}
+    </button>
+    <button
+      on:click={() => (onlyTime = !onlyTime)}
+      class="px-4 py-2 bg-blue-500 text-white rounded-lg"
+    >
+      Toggle mode
     </button>
   </div>
 </div>

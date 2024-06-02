@@ -7,9 +7,11 @@
     formatTotalTime,
   } from "../../utils/functions";
 
+  import type { Task } from "../../ts/interfaces";
+
   let groupedTasks = {};
   $: if ($tasks.length > 0) {
-    groupedTasks = groupTasksByWeek($tasks);
+    groupedTasks = groupTasksByWeek($tasks as Task[]);
   }
 </script>
 
