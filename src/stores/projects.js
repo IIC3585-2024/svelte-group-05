@@ -3,10 +3,11 @@ import { supabase } from '../supabaseClient';
 
 function createProjectsStore() {
 
-    async function fetchProjects () {
+    async function fetchProjects (id) {
         const { data, error } = await supabase
             .from('projects')
-            .select();
+            .select()
+            .eq('userId', id);
         if (error) {
             console.error('Error fetching projects:', error.message);
             return [];
@@ -39,8 +40,8 @@ function createProjectsStore() {
                 update((projects) => projects.filter((project) => project.id !== id));
             }
         },
-        fetch: async () => {
-            const projects = await fetchProjects();
+        fetch: async (id) => {
+            const projects = await fetchProjects(id);
             set(projects);
         }
     };

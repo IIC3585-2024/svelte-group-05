@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { labels } from "../stores/labels";
   import { tasks } from "../stores/tasks";
   import { projects } from "../stores/projects";
   import { onMount } from "svelte";
@@ -7,8 +8,9 @@
   import Navbar from "../components/Shared/Navbar.svelte";
 
   onMount(async () => {
-    await projects.fetch();
+    await projects.fetch(session.user.id);
     await tasks.fetch();
+    await labels.fetch(session.user.id);
   });
 
   export let data;
