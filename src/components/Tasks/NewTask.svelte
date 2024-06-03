@@ -4,6 +4,7 @@
   import { tasks } from "../../stores/tasks";
   import { projects } from "../../stores/projects";
   import { format } from "date-fns";
+  import Icon from "@iconify/svelte";
 
   export let session;
 
@@ -100,6 +101,8 @@
           bind:value={startTime}
           class="p-2 border rounded-lg"
         />
+        <span>-</span>
+
         <input
           type="time"
           bind:value={stopTime}
@@ -132,11 +135,12 @@
         Save
       {/if}
     </button>
-    <button
-      on:click={() => (onlyTime = !onlyTime)}
-      class="px-4 py-2 bg-blue-500 text-white rounded-lg"
-    >
-      Toggle mode
+    <button on:click={() => (onlyTime = !onlyTime)} class="block w-fit px-4 py-2 hover:bg-gray-200 hover:rounded-lg">
+      <Icon
+        icon={onlyTime ? "carbon:calendar" : "carbon:time"}
+        class="w-6 h-6"
+        on:click={() => (onlyTime = !onlyTime)}
+      />
     </button>
   </div>
 </div>
