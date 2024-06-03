@@ -1,9 +1,8 @@
 <script>
-	import { onMount } from 'svelte';
 	export let data;
 
-	let { supabase, session } = data;
-	$: ({ supabase, session } = data);
+	let { supabase } = data;
+	$: ({ supabase } = data);
 
 	let email = '';
 	let password = '';
@@ -11,7 +10,7 @@
 	let successMessage = '';
 
 	async function register() {
-		const { user, error } = await supabase.auth.signUp({
+		const { error } = await supabase.auth.signUp({
 			email,
 			password
 		});

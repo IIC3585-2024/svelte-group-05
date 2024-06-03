@@ -39,7 +39,6 @@ function groupTasksByWeek(tasks: Task[]): { [week: string]: Task[] } {
       groupedTasks[weekKey].push(task);
   });
 
-  // Sort tasks within each week by start time in descending order
   Object.keys(groupedTasks).forEach(weekKey => {
       groupedTasks[weekKey].sort((a, b) => {
           const dateTimeA = parse(`${a.startDate}T${a.startTime}`, "yyyy-MM-dd'T'HH:mm:ss", new Date());
@@ -48,7 +47,6 @@ function groupTasksByWeek(tasks: Task[]): { [week: string]: Task[] } {
       });
   });
 
-  // Sort the weeks in descending order
   const sortedGroupedTasks: { [week: string]: Task[] } = {};
   Object.keys(groupedTasks)
       .sort((a, b) => {

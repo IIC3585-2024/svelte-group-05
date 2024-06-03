@@ -7,16 +7,21 @@
   import "../app.css";
   import Navbar from "../components/Shared/Navbar.svelte";
 
+  
+  export let data;
+  
+  let { supabase, session } = data;
+  $: ({ supabase, session } = data);
+
   onMount(async () => {
+    if (!session) {
+      return;
+    }
     await projects.fetch(session.user.id);
-    await tasks.fetch();
+    await tasks.fetch(session.user.id);
     await labels.fetch(session.user.id);
   });
 
-  export let data;
-
-  let { supabase, session } = data;
-  $: ({ supabase, session } = data);
 
   onMount(() => {
     const { data } = supabase.auth.onAuthStateChange((event, _session) => {

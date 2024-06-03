@@ -1,7 +1,6 @@
 <script>
   import { projects } from "../../stores/projects";
 
-  export let supabase;
   export let session;
   let projectName = "";
   let errorMessage = "";

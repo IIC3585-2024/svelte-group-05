@@ -4,6 +4,7 @@
   import { tasks } from "../../stores/tasks";
   import { projects } from "../../stores/projects";
   import { calculateTotalTime, formatTotalTime } from "../../utils/functions";
+  import Icon from "@iconify/svelte";
 
   let possibleProjects = [];
 
@@ -14,7 +15,7 @@
   ];
   export let task;
 
-  let { name, startTime, stopTime, projectId, startDate } = task;
+  let { name, startTime, stopTime, projectId, startDate, stopDate } = task;
 
   let project = $projects.find((project) => project.id === projectId);
 
@@ -32,23 +33,19 @@
   function toggleMenu() {
     menuOpen = !menuOpen;
     if (menuOpen) {
-      document.addEventListener('click', handleClickOutside, true);
+      document.addEventListener("click", handleClickOutside, true);
     } else {
-      document.removeEventListener('click', handleClickOutside, true);
+      document.removeEventListener("click", handleClickOutside, true);
     }
   }
-
 </script>
 
 <div class="p-6 bg-white rounded-lg shadow-md">
   <div class="flex items-center space-x-4 mb-4">
-    <input
-      type="text"
-      bind:value={name}
-      placeholder="What are you working on?"
-      class="flex-1 p-2 border rounded-lg"
-    />
-    <Projects projects={possibleProjects} bind:project />
+    <p class="flex-1 p-2">
+      {name}
+    </p>
+    <Projects projects={possibleProjects} bind:project disabled={true} />
 
     <!-- <Labels {possibleLabels} bind:labels /> -->
 
@@ -62,7 +59,20 @@
       </span>
     </div>
 
-    <input type="date" bind:value={startDate} class="p-2 border rounded-lg" />
+    <div class="border-r border-gray-300 h-6 border-1" />
+
+    <input
+      type="date"
+      bind:value={startDate}
+      class="p-2 border rounded-lg"
+      disabled
+    />
+    <input
+      type="date"
+      bind:value={stopDate}
+      class="p-2 border rounded-lg"
+      disabled
+    />
 
     <div class="flex items-center space-x-2">
       <span class="text-xl font-bold">
@@ -71,29 +81,11 @@
     </div>
     <div class="relative">
       <button
-        on:click={toggleMenu}
-        class="px-4 py-2 bg-blue-500 text-white rounded-lg"
+        on:click={deleteTask}
+        class="block w-fit px-4 py-2 hover:bg-gray-200 hover:rounded-lg"
       >
-        Options
+        <Icon icon="bi:trash" class="w-6 h-6" />
       </button>
-      {#if menuOpen}
-        <div
-          class="absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-10"
-        >
-          <button
-            on:click={updateTask}
-            class="block w-full px-4 py-2 text-left text-black hover:bg-gray-200"
-          >
-            Update
-          </button>
-          <button
-            on:click={deleteTask}
-            class="block w-full px-4 py-2 text-left text-black hover:bg-gray-200"
-          >
-            Delete
-          </button>
-        </div>
-      {/if}
     </div>
   </div>
 </div>
