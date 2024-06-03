@@ -5,6 +5,10 @@
 		"src/routes/+layout.ts",
 		"src/routes/+layout.server.ts"
 	],
+	"/labels": [
+		"src/routes/+layout.ts",
+		"src/routes/+layout.server.ts"
+	],
 	"/login": [
 		"src/routes/+layout.ts",
 		"src/routes/+layout.server.ts"
