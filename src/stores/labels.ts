@@ -1,9 +1,10 @@
 import { writable } from 'svelte/store';
 import { supabase } from '../supabaseClient';
+import type { Label, CreateLabel  } from '../ts/interfaces';
 
 function createLabelsStore() {
 
-    async function fetchLabels (userId) {
+    async function fetchLabels (userId: string) : Promise<Label[]> {
         const { data, error } = await supabase
           .from("labels")
           .select()
@@ -14,11 +15,11 @@ function createLabelsStore() {
         }
         return data;
     }
-    const { subscribe, set, update } = writable([]);
+    const { subscribe, set, update } = writable<Label[]>([]);
 
     return {
         subscribe,
-        add: async (label) => {
+        add: async (label: CreateLabel) => {
             console.log('Adding label:', label);
             const { data, error } = await supabase
                 .from('labels')
@@ -30,7 +31,7 @@ function createLabelsStore() {
                 update((labels) => [...labels, data[0]]);
             }
         },
-        delete: async (id) => {
+        delete: async (id: string) => {
             const { error } = await supabase
                 .from('labels')
                 .delete()
@@ -41,7 +42,7 @@ function createLabelsStore() {
                 update((labels) => labels.filter((label) => label.id !== id));
             }
         },
-        fetch: async (userId) => {
+        fetch: async (userId: string) => {
             const labels = await fetchLabels(userId);
             set(labels);
         }

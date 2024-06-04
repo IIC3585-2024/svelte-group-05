@@ -1,7 +1,19 @@
 
 interface Label {
-    label: string;
+    id: string;
+    name: string;
+    color: string;
+    userId: string;
+    taskId: string[];
 }
+
+interface CreateLabel {
+    name: string;
+    color: string;
+    userId: string;
+}
+
+
 
 interface Project {
     id: string
@@ -20,4 +32,4 @@ interface Task {
     endTime: string;
 }
 
-export type { Label, Project, Task };
+export type { Label, CreateLabel, Project, Task };
