@@ -5,7 +5,6 @@
   import Navbar from "../components/Shared/Navbar.svelte";
   import Toast from "../components/Shared/Toast.svelte";
 
-  
   export let data;
   
   let { supabase, session } = data;
