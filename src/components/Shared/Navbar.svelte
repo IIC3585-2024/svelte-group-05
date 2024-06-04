@@ -40,6 +40,11 @@
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >Labels</a
               >
+              <a
+                href="/calendar"
+                class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >Calendar</a
+              >
             </div>
           </div>
         {/if}
@@ -88,6 +93,11 @@
         href="/app/labels"
         class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >Labels</a
+      >
+      <a
+        href="/calendar"
+        class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+        >Calendar</a
       >
     </div>
   </div>

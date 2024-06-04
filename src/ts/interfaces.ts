@@ -32,7 +32,7 @@ interface Project {
 
 interface Task {
     id: string;
-    task: string;
+    name: string;
     projectId: string;
     userId: string;
     startDate: Date;
@@ -41,4 +41,16 @@ interface Task {
     endTime: string;
 }
 
-export type { Label, CreateLabel, CreateTaskLabel, TaskLabel, Project, Task };
+interface Holiday {
+    date: string;
+    localName: string;
+    name: string;
+    countryCode: string;
+    fixed: boolean;
+    global: boolean;
+    counties: string | null;
+    launchYear: string | null;
+    types: string[];
+}
+
+export type { Label, CreateLabel, CreateTaskLabel, TaskLabel, Project, Task, Holiday };

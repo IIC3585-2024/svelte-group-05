@@ -1,7 +1,5 @@
 <script lang="ts">
-  import Labels from "../Labels.svelte";
   import Projects from "../Projects.svelte";
-  import UsedLabels from "../Labels/UsedTaskLabels.svelte"
   import { tasks } from "../../stores/tasks";
   import { projects } from "../../stores/projects";
   import { tasksLabels } from "../../stores/tasksLabels";
