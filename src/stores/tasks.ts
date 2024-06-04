@@ -42,9 +42,10 @@ function createTasksStore() {
                 update((tasks) => tasks.filter((task) => task.id !== id));
             }
         },
-        fetch: async (userId: string) => {
+        fetch: async (userId: string) : Promise<Task[]> => {
             const tasks = await fetchTasks(userId);
             set(tasks);
+            return tasks;
         }
     };
 }

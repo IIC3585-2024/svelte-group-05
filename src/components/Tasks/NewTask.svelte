@@ -3,20 +3,18 @@
   import Projects from "../Projects.svelte";
   import { tasks } from "../../stores/tasks";
   import { projects } from "../../stores/projects";
+  import { labels } from "../../stores/labels";
+  import { task_labels } from "../../stores/tasks_labels";
   import { format } from "date-fns";
   import Icon from "@iconify/svelte";
+  import type { Label } from "../../ts/interfaces";
 
   export let session;
 
-  let possibleLabels = [
-    { id: 1, name: "ocio" },
-    { id: 2, name: "ocio2" },
-    { id: 3, name: "ocio3" },
-  ];
 
   let name = "";
   let project = null;
-  let labels = [];
+  let Selectedlabels: Label[] = [];
   let startTime: Date;
   let stopTime: Date;
   let startDate = new Date();
@@ -29,7 +27,7 @@
   function clear() {
     name = "";
     project = null;
-    labels = [];
+    Selectedlabels = [];
     startTime = null;
     stopTime = null;
     startDate = new Date();
@@ -58,7 +56,21 @@
     }
   }
 
-  function addTask() {
+  function addLabelsToTask() {
+    if (Selectedlabels.length == 0){
+      return '';
+    }
+
+    let last_task = $tasks[$tasks.length - 1];
+    Selectedlabels.map( (label) => {
+      task_labels.add({
+        'labelId': label.toString(),
+        'taskId': last_task.id
+      })
+    })
+  }
+
+  async function  addTask() {
     const newTask = {
       name,
       userId: session.user.id,
@@ -68,7 +80,9 @@
       startDate: format(startDate, "yyyy-MM-dd"),
       stopDate: format(stopDate, "yyyy-MM-dd"),
     };
-    tasks.add(newTask);
+
+    await tasks.add(newTask);
+    await addLabelsToTask();
 
     clear();
   }
@@ -84,7 +98,7 @@
     />
     <Projects {projects} bind:project />
 
-    <Labels {possibleLabels} bind:labels />
+    <Labels {labels} bind:Selectedlabels />
 
     {#if onlyTime}
       <div>

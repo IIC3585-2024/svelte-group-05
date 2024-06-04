@@ -2,6 +2,7 @@
   import { labels } from "../stores/labels";
   import { tasks } from "../stores/tasks";
   import { projects } from "../stores/projects";
+  import { task_labels } from "../stores/tasks_labels";
   import { onMount } from "svelte";
   import { invalidate } from "$app/navigation";
   import "../app.css";
@@ -18,8 +19,9 @@
       return;
     }
     await projects.fetch(session.user.id);
-    await tasks.fetch(session.user.id);
+    let result_tasks = await tasks.fetch(session.user.id);
     await labels.fetch(session.user.id);
+    await task_labels.fetch(result_tasks);
   });
 
 
