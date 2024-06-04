@@ -2,9 +2,11 @@
   export let data;
   let { supabase, session } = data;
   $: ({ supabase, session } = data);
+  import { goto } from '$app/navigation';
 
-  function handleLogout() {
-    supabase.auth.signOut();
+  async function handleLogout() {
+    await supabase.auth.signOut();
+    goto('/');
   }
 </script>
 
@@ -15,23 +17,26 @@
         class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
       >
         <div class="hidden sm:block flex-shrink-0">
-          <a href="/" class="text-2xl font-semibold text-gray-800">Taskify</a>
+          <a
+            href={session ? "/app/tasks" : "/"}
+            class="text-2xl font-semibold text-gray-800">Taskify</a
+          >
         </div>
         {#if session}
           <div class="hidden sm:block sm:ml-6">
             <div class="flex space-x-4">
               <a
-                href="/"
+                href="/app/tasks"
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >Time Tracker</a
               >
               <a
-                href="/projects"
+                href="/app/projects"
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >Projects</a
               >
               <a
-                href="/labels"
+                href="/app/labels"
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >Labels</a
               >
@@ -58,7 +63,7 @@
             >Login</a
           >
           <a
-            href="/register"
+            href="/signup"
             class="text-gray-600 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md font-medium"
             >Sign Up</a
           >
@@ -75,12 +80,12 @@
         >Time Tracker</a
       >
       <a
-        href="/projects"
+        href="/app/projects"
         class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >Projects</a
       >
       <a
-        href="/labels"
+        href="/app/labels"
         class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >Labels</a
       >

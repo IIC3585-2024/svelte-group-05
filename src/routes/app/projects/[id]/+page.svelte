@@ -1,7 +1,7 @@
 <script>
-  import { projects } from "../../../stores/projects";
-  import { tasks } from "../../../stores/tasks";
-  import TaksList from "../../../components/Tasks/TaskList.svelte";
+  import { projects } from "../../../../stores/projects";
+  import { tasks } from "../../../../stores/tasks";
+  import TaksList from "../../../../components/Tasks/TaskList.svelte";
 
   import { page } from "$app/stores";
   import { onMount } from "svelte";
@@ -17,11 +17,6 @@
   });
   $: projectTasks = $tasks.filter((task) => task.projectId === project.id);
 
-  onMount(async () => {
-    if (!session) {
-      return;
-    }
-  });
 </script>
 
 <main>

@@ -25,7 +25,7 @@
 
 <main class="flex items-center justify-center min-h-screen bg-gray-100">
 	<div class="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-lg">
-		<h1 class="text-3xl font-bold text-center text-gray-900">Register</h1>
+		<h1 class="text-3xl font-bold text-center text-gray-900">Sign Up</h1>
 		<div>
 			{#if errorMessage}
 				<p class="mb-4 text-sm text-center text-red-600">{errorMessage}</p>

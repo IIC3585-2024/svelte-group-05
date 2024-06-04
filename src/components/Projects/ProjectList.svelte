@@ -20,7 +20,7 @@
           <div class="flex justify-between items-center mb-4">
             <button
               class="p-4 border border-gray-200 rounded-md hover:bg-gray-50"
-              on:click={() => goto(`/projects/${project.id}`)}
+              on:click={() => goto(`/app/projects/${project.id}`)}
             >
               {project.name}
             </button>
