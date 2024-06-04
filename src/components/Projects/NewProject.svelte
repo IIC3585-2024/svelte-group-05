@@ -8,11 +8,17 @@
 
   async function createProject() {
     projects.add({ name: projectName, userId: session.user.id });
+    clear();
+  }
+
+  function clear() {
+    projectName = "";
+    errorMessage = "";
+    successMessage = "";
   }
 </script>
 
 <main class="p-8 bg-gray-100">
-  <h1 class="text-4xl font-bold mb-6">Create a new project</h1>
   <div class="bg-white p-6 rounded-lg shadow-md">
     {#if errorMessage}
       <p class="text-red-500">{errorMessage}</p>
@@ -20,7 +26,10 @@
     {#if successMessage}
       <p class="text-green-500">{successMessage}</p>
     {/if}
-    <form on:submit|preventDefault={createProject} class="space-y-4">
+    <form
+      on:submit|preventDefault={createProject}
+      class="flex flex-row justify-between items-center"
+    >
       <div class="flex flex-col">
         <label for="projectName" class="mb-2 font-semibold">Project name:</label
         >
@@ -34,7 +43,7 @@
       </div>
       <button
         type="submit"
-        class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600"
+        class="px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 h-fit ml-4"
         >Create project</button
       >
     </form>

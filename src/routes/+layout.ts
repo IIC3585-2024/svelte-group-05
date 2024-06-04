@@ -1,3 +1,6 @@
+import { tasks } from "../stores/tasks";
+import { projects } from "../stores/projects";
+
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public'
 import type { LayoutLoad } from './$types'
 import { createBrowserClient, isBrowser, parse } from '@supabase/ssr'
@@ -29,6 +32,8 @@ export const load = (async ({ fetch, data, depends }) => {
   const {
     data: { session },
   } = await supabase.auth.getSession()
+  await projects.fetch(session.user.id);
+  await tasks.fetch(session.user.id);
 
   return { supabase, session }
 }) satisfies LayoutLoad

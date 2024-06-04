@@ -1,22 +1,20 @@
 <script lang="ts">
   import TaskItem from "./TaskItem.svelte";
-  import { tasks } from "../../stores/tasks";
   import {
     calculateTotalTime,
     groupTasksByWeek,
     formatTotalTime,
   } from "../../utils/functions";
 
+  export let tasks: Task[] = [];
+  $: groupedTasks = groupTasksByWeek(tasks);
+
   import type { Task } from "../../ts/interfaces";
 
-  let groupedTasks = {};
-  $: if ($tasks.length > 0) {
-    groupedTasks = groupTasksByWeek($tasks as Task[]);
-  }
 </script>
 
-{#if !$tasks.length}
-  <p>No tasks found.</p>
+{#if !tasks.length}
+  <p class="text-center mt-8 text-3xl text-gray-500">🙈 No tasks found 🏖️</p>
 {:else}
   <div class="space-y-4">
     {#each Object.entries(groupedTasks) as [week, _tasks]}

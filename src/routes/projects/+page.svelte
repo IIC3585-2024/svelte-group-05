@@ -1,24 +1,25 @@
 <script>
-  import { goto } from '$app/navigation';
+  import { goto } from "$app/navigation";
+  import { projects } from "../../stores/projects";
 
   import NewProject from "../../components/Projects/NewProject.svelte";
   import ProjectList from "../../components/Projects/ProjectList.svelte";
 
   export let data;
 
-  let { supabase, session } = data;
-  $: ({ supabase, session } = data);
+  let { session } = data;
+  $: ({ session } = data);
 
   if (!session) {
-    goto('/');
+    goto("/");
   }
 </script>
 
 <main>
   <div class="w-full">
     {#if session}
-      <NewProject {supabase} {session} />
-      <ProjectList {supabase} />
+      <NewProject {session} />
+      <ProjectList {projects} />
     {/if}
   </div>
 </main>

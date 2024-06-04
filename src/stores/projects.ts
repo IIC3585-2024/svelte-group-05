@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import { supabase} from '../supabaseClient';
 import type { Project } from '../ts/interfaces';
+import { notifications } from "../utils/notification";
 
 function createProjectsStore() {
 
@@ -10,7 +11,7 @@ function createProjectsStore() {
             .select()
             .eq('userId', userId)
         if (error) {
-            console.error('Error fetching projects:', error.message);
+            notifications.danger('Something went wrong getting projects', 2000)
             return [];
         }
         return data;
@@ -26,9 +27,10 @@ function createProjectsStore() {
                 .select('*')
 
             if (error) {
-                console.error('Error adding project:', error.message);
+                notifications.danger('Something went wrong', 2000)
             } else {
                 update((projects) => [...projects, data[0]]);
+                notifications.success('Project added', 2000)
             }
         },
         delete: async (id:string) => {
@@ -37,9 +39,10 @@ function createProjectsStore() {
                 .delete()
                 .eq('id', id);
             if (error) {
-                console.error('Error removing project:', error.message);
+                notifications.danger('Something went wrong', 2000)
             } else {
                 update((projects) => projects.filter((project) => project.id !== id));
+                notifications.success('Project deleted', 2000)
             }
         },
         fetch: async (userId: string) => {

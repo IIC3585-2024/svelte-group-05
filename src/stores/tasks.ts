@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import { supabase } from '../supabaseClient';
 import type { Task } from '../ts/interfaces';
+import { notifications } from "../utils/notification";
 
 function createTasksStore() {
 
@@ -11,7 +12,7 @@ function createTasksStore() {
             .eq('userId', userId)
 
         if (error) {
-            console.error('Error fetching tasks:', error.message);
+            notifications.danger('Something went wrong getting tasks', 2000)
             return [];
         }
         return data;
@@ -26,9 +27,10 @@ function createTasksStore() {
                 .insert(task)
                 .select('*')
             if (error) {
-                console.error('Error adding task:', error.message);
+                notifications.danger('Something went wrong', 2000)
             } else {
                 update((tasks) => [...tasks, data[0]]);
+                notifications.success('Task added', 2000)
             }
         },
         delete: async (id: string) => {
@@ -37,9 +39,10 @@ function createTasksStore() {
                 .delete()
                 .eq('id', id);
             if (error) {
-                console.error('Error removing task:', error.message);
+                notifications.danger('Something went wrong', 2000)
             } else {
                 update((tasks) => tasks.filter((task) => task.id !== id));
+                notifications.success('Task deleted', 2000)
             }
         },
         fetch: async (userId: string) => {

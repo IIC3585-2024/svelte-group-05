@@ -127,7 +127,7 @@
       on:click={handleClick}
       class="px-4 py-2 {running
         ? 'bg-red-500'
-        : 'bg-green-500'} text-white rounded-lg"
+        : 'bg-green-500'} text-white rounded-lg h-fit"
     >
       {#if onlyTime}
         {running ? "Stop" : "Start"}
