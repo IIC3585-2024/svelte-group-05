@@ -45,9 +45,10 @@ function createTasksStore() {
                 notifications.success('Task deleted', 2000)
             }
         },
-        fetch: async (userId: string) => {
+        fetch: async (userId: string) : Promise<Task[]> => {
             const tasks = await fetchTasks(userId);
             set(tasks);
+            return tasks;
         }
     };
 }

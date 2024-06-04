@@ -1,19 +1,21 @@
 <script lang="ts">
   import Labels from "../Labels.svelte";
   import Projects from "../Projects.svelte";
+  import UsedLabels from "../Labels/UsedTaskLabels.svelte"
   import { tasks } from "../../stores/tasks";
   import { projects } from "../../stores/projects";
+  import { task_labels } from "../../stores/tasksLabels";
+  import { labels } from "../../stores/labels";
   import { calculateTotalTime, formatTotalTime } from "../../utils/functions";
   import Icon from "@iconify/svelte";
+  import UsedTaskLabels from "../Labels/UsedTaskLabels.svelte";
 
   let possibleProjects = [];
+  let possibleLabels = [];
 
-  let possibleLabels = [
-    { id: 1, name: "ocio" },
-    { id: 2, name: "ocio2" },
-    { id: 3, name: "ocio3" },
-  ];
   export let task;
+
+  $: currentTaskLabels = $task_labels;
 
   let { name, startTime, stopTime, projectId, startDate, stopDate } = task;
 
@@ -45,6 +47,7 @@
     <p class="flex-1 p-2">
       {name}
     </p>
+    <UsedTaskLabels task={task} labels={labels} task_labels={currentTaskLabels} />
     <Projects projects={possibleProjects} bind:project disabled={true} />
 
     <!-- <Labels {possibleLabels} bind:labels /> -->
