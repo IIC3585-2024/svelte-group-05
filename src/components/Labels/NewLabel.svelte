@@ -21,7 +21,7 @@
 </script>
 
 <div class='p-8 bg-gray-100'>
-  <h1 class="text-4xl font-bold mb-6">Create and customize your tags</h1>
+  <h1 class="text-4xl font-bold mb-6">Create and customize your labels</h1>
   <div class="p-6 bg-white rounded-lg shadow-md">
     <div class="flex items-center space-x-2 mb-4">
       <label class="mr-4 mb-2 flex items-center   text-lg font-semibold">
