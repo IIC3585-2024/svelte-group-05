@@ -16,6 +16,7 @@
     return _project.id.toString() === projectId;
   });
   $: projectTasks = $tasks.filter((task) => task.projectId === project.id);
+  $: projectCost = projectTasks.reduce((acc, task) => acc + task.cost, 0);
 
 </script>
 
@@ -23,6 +24,7 @@
   <div class="w-full flex flex-col items-center mt-8">
     {#if session && project}
       <h1 class="text-2xl font-bold mb-4">Project: {project.name}</h1>
+      <p class="text-lg font-semibold mb-4">Total Cost: ${projectCost}</p>
       <TaksList tasks={projectTasks} />
     {:else}
       <p class="text-center mt-8 text-3xl text-gray-500">

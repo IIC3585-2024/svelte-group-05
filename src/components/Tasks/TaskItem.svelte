@@ -1,12 +1,13 @@
 <script lang="ts">
   import Projects from "../Projects.svelte";
+  import UsedTaskLabels from "../Labels/UsedTaskLabels.svelte";
+  import Cost from "../Labels/Cost.svelte";
   import { tasks } from "../../stores/tasks";
   import { projects } from "../../stores/projects";
   import { tasksLabels } from "../../stores/tasksLabels";
   import { labels } from "../../stores/labels";
   import { calculateTotalTime, formatTotalTime } from "../../utils/functions";
   import Icon from "@iconify/svelte";
-  import UsedTaskLabels from "../Labels/UsedTaskLabels.svelte";
 
   let possibleProjects = [];
 
@@ -43,6 +44,7 @@
       {name}
     </p>
     <UsedTaskLabels task={task} labels={labels} tasksLabels={$tasksLabels} />
+    <Cost task={task} />
     <Projects projects={possibleProjects} bind:project disabled={true} />
 
     <!-- <Labels {possibleLabels} bind:labels /> -->

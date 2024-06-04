@@ -33,6 +33,7 @@ interface Project {
 interface Task {
     id: string;
     name: string;
+    cost: number;
     projectId: string;
     userId: string;
     startDate: Date;
