@@ -4,13 +4,12 @@
   import { tasks } from "../../stores/tasks";
   import { projects } from "../../stores/projects";
   import { labels } from "../../stores/labels";
-  import { task_labels } from "../../stores/tasksLabels";
+  import { tasksLabels } from "../../stores/tasksLabels";
   import { format } from "date-fns";
   import Icon from "@iconify/svelte";
   import type { Label } from "../../ts/interfaces";
 
   export let session;
-
 
   let name = "";
   let project = null;
@@ -61,11 +60,11 @@
       return '';
     }
 
-    let last_task = $tasks[$tasks.length - 1];
+    let lastTask = $tasks[$tasks.length - 1];
     Selectedlabels.map( (label) => {
-      task_labels.add({
+      tasksLabels.add({
         'labelId': label.toString(),
-        'taskId': last_task.id
+        'taskId': lastTask.id
       })
     })
   }

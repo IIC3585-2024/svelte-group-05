@@ -1,7 +1,7 @@
 import { tasks } from "../stores/tasks";
 import { projects } from "../stores/projects";
 import { labels } from "../stores/labels";
-import { task_labels } from "../stores/tasksLabels";
+import { tasksLabels } from "../stores/tasksLabels";
 
 import { PUBLIC_SUPABASE_ANON_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public'
 import type { LayoutLoad } from './$types'
@@ -38,7 +38,7 @@ export const load = (async ({ fetch, data, depends }) => {
     await projects.fetch(session.user.id);
     let _tasks = await tasks.fetch(session.user.id);
     await labels.fetch(session.user.id);
-    await task_labels.fetch(_tasks);
+    await tasksLabels.fetch(_tasks);
   }
 
   return { supabase, session }

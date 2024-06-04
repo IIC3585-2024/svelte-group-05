@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { TaskLabel, Label } from "../../ts/interfaces";
   
-  export let task_labels;
+  export let tasksLabels;
   export let labels;
   export let task;
 
-  $: taskLabels = task_labels.filter((tl: TaskLabel) => tl.taskId === task.id);
+  $: taskLabels = tasksLabels.filter((tl: TaskLabel) => tl.taskId === task.id);
   $: usedLabels = $labels.filter((label: Label) => taskLabels.find((tl: TaskLabel) => tl.labelId === label.id));
 </script>
 
