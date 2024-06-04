@@ -5,12 +5,8 @@
   export let labels;
   export let task;
 
-  $: task_labels
-  $: task
-
-
-  let taskLabels = task_labels.filter((tl: TaskLabel) => tl.taskId === task.id);
-  let usedLabels = $labels.filter((label: Label) => taskLabels.find((tl: TaskLabel) => tl.labelId === label.id));
+  $: taskLabels = task_labels.filter((tl: TaskLabel) => tl.taskId === task.id);
+  $: usedLabels = $labels.filter((label: Label) => taskLabels.find((tl: TaskLabel) => tl.labelId === label.id));
 </script>
 
 
