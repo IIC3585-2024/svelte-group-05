@@ -1,6 +1,10 @@
 
 interface Label {
-    label: string;
+    id: string;
+    name: string;
+    color: string;
+    userId: string;
+    taskId: string[];
 }
 
 interface Project {
