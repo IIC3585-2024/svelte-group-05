@@ -1,6 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import Calendar from '../../components/calendar/Calendar.svelte';
+  import Calendar from '../../../components/calendar/Calendar.svelte';
 
   export let data;
 

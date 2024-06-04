@@ -41,7 +41,7 @@
                 >Labels</a
               >
               <a
-                href="/calendar"
+                href="/app/calendar"
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >Calendar</a
               >
@@ -95,7 +95,7 @@
         >Labels</a
       >
       <a
-        href="/calendar"
+        href="/app/calendar"
         class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
         >Calendar</a
       >
