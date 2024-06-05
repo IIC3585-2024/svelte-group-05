@@ -14,7 +14,7 @@
 
 
     const options = {
-      "title": "Total de horas por proyecto",
+      "title": "Total hours per project",
       "donut": {
         "center": {
           "label": "Total"
@@ -25,16 +25,16 @@
     };
 
     const barOptions = {
-    title: "Total de horas por semana",
+    title: "Total hours per week",
       axes: {
         left: {
           mapsTo: "totalHours",
-          title: "Total de Horas"
+          title: "Total Hours"
         },
         bottom: {
           mapsTo: "week",
           scaleType: "labels",
-          title: "Semana"
+          title: "Week"
         }
       },
       height: "400px",
