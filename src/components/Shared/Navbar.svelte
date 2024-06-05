@@ -45,6 +45,11 @@
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >Calendar</a
               >
+              <a
+                href="/app/dashboard"
+                class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                >Dashboard</a
+              >
             </div>
           </div>
         {/if}

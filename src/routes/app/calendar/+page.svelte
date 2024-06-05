@@ -6,7 +6,6 @@
   let { supabase, session } = data;
   $: ({ supabase, session } = data);
 
-
 </script>
 
 <main>
