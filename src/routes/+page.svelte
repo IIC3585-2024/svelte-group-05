@@ -9,7 +9,7 @@
       </p>
     </div>
     <img
-      src="/src/assets/hero.png"
+      src="/hero.png"
       alt="Taskify"
       class="w-11/12 sm:w-3/4 md:w-1/2 lg:w-5/12 mb-4"
     />
