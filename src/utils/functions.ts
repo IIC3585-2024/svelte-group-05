@@ -6,7 +6,18 @@ interface Task {
     stopTime: string;
     stopDate: string;
     [key: string]: any;
-  }
+}
+
+interface Project {
+    id: number;
+    name: string;
+    [key: string]: any;
+}
+
+interface WeekTotalHours {
+    week: string;
+    totalHours: number;
+}
 
 function calculateTotalTime(tasks: Task[]): number {
     return tasks.reduce((acc, task) => {
@@ -61,4 +72,65 @@ function groupTasksByWeek(tasks: Task[]): { [week: string]: Task[] } {
   return sortedGroupedTasks;
 }
 
-export { calculateTotalTime, groupTasksByWeek, formatTotalTime };
+function groupTasksByProjectId(tasks: Task[]): { [projectId: string]: Task[];} {
+    const groupedTasks: { [projectId: string]: Task[]; } = {};
+  
+    tasks.forEach((task) => {
+      if (!groupedTasks[task.projectId]) {
+        groupedTasks[task.projectId] = [];
+      }
+      groupedTasks[task.projectId].push(task);
+    });
+  
+    Object.keys(groupedTasks).forEach(projectId => {
+      groupedTasks[projectId].sort((a, b) => {
+        const dateTimeA = parse(`${a.startDate}T${a.startTime}`, "yyyy-MM-dd'T'HH:mm:ss", new Date());
+        const dateTimeB = parse(`${b.startDate}T${b.startTime}`, "yyyy-MM-dd'T'HH:mm:ss", new Date());
+        return compareDesc(dateTimeA, dateTimeB);
+      });
+    });
+  
+    return groupedTasks;
+}
+
+function parseWeekString(week: string): Date {
+    const [start, end] = week.split(' - ');
+    const startDate = new Date(start);
+    const endDate = new Date(end.replace(/,/g, ''));
+  
+    if (isNaN(startDate.getTime())) {
+      const [startMonth, startDay] = start.split(' ');
+      const endYear = endDate.getFullYear();
+      return new Date(`${startMonth} ${startDay}, ${endYear}`);
+    }
+  
+    return startDate;
+}
+  
+function transformTasksToWeekTotalHours(tasksGroupedByWeek: { [week: string]: Task[] }): WeekTotalHours[] {
+    return Object.keys(tasksGroupedByWeek)
+      .sort((a, b) => parseWeekString(a).getTime() - parseWeekString(b).getTime())
+      .map(week => {
+        const totalHours = calculateTotalTime(tasksGroupedByWeek[week]) / 3600; // Convert to hours
+        return {
+          week,
+          totalHours
+        };
+      });
+  }
+
+function calculateProjectHours(tasks: Task[], projects: Project[]): { group: string; value: number }[] {
+    const groupedTasks = groupTasksByProjectId(tasks);
+    const projectIds = Object.keys(groupedTasks).map(id => parseInt(id, 10));
+  
+    const tasksByProjects = projects
+      .filter(project => projectIds.includes(project.id))
+      .map(project => ({
+        group: project.name,
+        value: calculateTotalTime(groupedTasks[project.id.toString()]) / 3600
+      }));
+  
+    return tasksByProjects;
+}
+
+export { calculateTotalTime, groupTasksByWeek, formatTotalTime, groupTasksByProjectId, transformTasksToWeekTotalHours, calculateProjectHours };
