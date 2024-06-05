@@ -22,6 +22,7 @@
   let elapsedTime = 0;
   let interval: NodeJS.Timeout;
   let onlyTime: boolean = true;
+  let cost = '' as number | string;
 
   function clear() {
     name = "";
@@ -33,6 +34,7 @@
     stopDate = new Date();
     running = false;
     elapsedTime = 0;
+    cost = '';
     clearInterval(interval);
   }
 
@@ -70,6 +72,10 @@
   }
 
   async function  addTask() {
+    if (typeof cost === 'string') {
+      cost = parseFloat(cost);
+    }
+
     const newTask = {
       name,
       userId: session.user.id,
@@ -78,6 +84,7 @@
       stopTime: onlyTime ? format(stopTime, "HH:mm:ss") : stopTime,
       startDate: format(startDate, "yyyy-MM-dd"),
       stopDate: format(stopDate, "yyyy-MM-dd"),
+      cost: cost > 0 ? cost : 0
     };
 
     await tasks.add(newTask);
@@ -94,6 +101,13 @@
       bind:value={name}
       placeholder="What are you working on?"
       class="flex-1 p-2 border rounded-lg"
+    />
+    <input
+          type="number"
+          bind:value={cost}
+          class="flex-1 p-2 border rounded-lg max-w-32"
+          placeholder="Cost $"
+          min="0"
     />
     <Projects {projects} bind:project />
 

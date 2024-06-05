@@ -24,15 +24,24 @@ interface TaskLabel {
   taskId: string;
 }
 
+enum Priority {
+    Low = 'low',
+    Medium = 'medium',
+    High = 'high',
+}
+
 interface Project {
     id: string
     name: string;
     userId: string;
+    priority: Priority | null;
+    description: string;
 }
 
 interface Task {
     id: string;
     name: string;
+    cost: number;
     projectId: string;
     userId: string;
     startDate: Date;
@@ -53,4 +62,4 @@ interface Holiday {
     types: string[];
 }
 
-export type { Label, CreateLabel, CreateTaskLabel, TaskLabel, Project, Task, Holiday };
+export type { Label, CreateLabel, CreateTaskLabel, TaskLabel, Priority, Project, Task, Holiday };
