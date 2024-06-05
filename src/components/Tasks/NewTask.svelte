@@ -22,7 +22,7 @@
   let elapsedTime = 0;
   let interval: NodeJS.Timeout;
   let onlyTime: boolean = true;
-  let cost = '' as number | string;
+  let cost = "" as number | string;
 
   function clear() {
     name = "";
@@ -34,7 +34,7 @@
     stopDate = new Date();
     running = false;
     elapsedTime = 0;
-    cost = '';
+    cost = "";
     clearInterval(interval);
   }
 
@@ -58,21 +58,21 @@
   }
 
   function addLabelsToTask() {
-    if (Selectedlabels.length == 0){
-      return '';
+    if (Selectedlabels.length == 0) {
+      return "";
     }
 
     let lastTask = $tasks[$tasks.length - 1];
-    Selectedlabels.map( (label) => {
+    Selectedlabels.map((label) => {
       tasksLabels.add({
-        'labelId': label.toString(),
-        'taskId': lastTask.id
-      })
-    })
+        labelId: label.toString(),
+        taskId: lastTask.id,
+      });
+    });
   }
 
-  async function  addTask() {
-    if (typeof cost === 'string') {
+  async function addTask() {
+    if (typeof cost === "string") {
       cost = parseFloat(cost);
     }
 
@@ -84,7 +84,7 @@
       stopTime: onlyTime ? format(stopTime, "HH:mm:ss") : stopTime,
       startDate: format(startDate, "yyyy-MM-dd"),
       stopDate: format(stopDate, "yyyy-MM-dd"),
-      cost: cost > 0 ? cost : 0
+      cost: cost > 0 ? cost : 0,
     };
 
     await tasks.add(newTask);
@@ -95,79 +95,86 @@
 </script>
 
 <div class="p-6 bg-white rounded-lg shadow-md">
-  <div class="flex items-center space-x-2 mb-4">
-    <input
-      type="text"
-      bind:value={name}
-      placeholder="What are you working on?"
-      class="flex-1 p-2 border rounded-lg"
-    />
-    <input
-          type="number"
-          bind:value={cost}
-          class="flex-1 p-2 border rounded-lg max-w-32"
-          placeholder="Cost $"
-          min="0"
-    />
-    <Projects {projects} bind:project />
-
-    <Labels {labels} bind:Selectedlabels />
-
-    {#if onlyTime}
-      <div>
-        {#if running}
-          {new Date(elapsedTime).toISOString().slice(11, 19)}
-        {:else}
-          00:00:00
-        {/if}
-      </div>
-    {:else}
-      <div class="flex items-center space-x-1">
-        <input
-          type="time"
-          bind:value={startTime}
-          class="p-2 border rounded-lg"
-        />
-        <span>-</span>
-
-        <input
-          type="time"
-          bind:value={stopTime}
-          class="p-2 border rounded-lg"
-        />
-
-        <input
-          type="date"
-          bind:value={startDate}
-          class="p-2 border rounded-lg"
-          max={format(new Date(), "yyyy-MM-dd")}
-        />
-        <input
-          type="date"
-          bind:value={stopDate}
-          class="p-2 border rounded-lg"
-          max={format(new Date(), "yyyy-MM-dd")}
-        />
-      </div>
-    {/if}
-    <button
-      on:click={handleClick}
-      class="px-4 py-2 {running
-        ? 'bg-red-500'
-        : 'bg-green-500'} text-white rounded-lg h-fit"
-    >
-      {#if onlyTime}
-        {running ? "Stop" : "Start"}
-      {:else}
-        Save
-      {/if}
-    </button>
-    <button on:click={() => (onlyTime = !onlyTime)} class="block w-fit px-4 py-2 hover:bg-gray-200 hover:rounded-lg">
-      <Icon
-        icon={onlyTime ? "carbon:calendar" : "carbon:time"}
-        class="w-6 h-6"
-        on:click={() => (onlyTime = !onlyTime)}
+  <div class="flex justify-between items-center space-x-2 mb-4 flex-wrap">
+    <div class="flex justify-between items-center space-x-2">
+      <input
+        type="text"
+        bind:value={name}
+        placeholder="What are you working on?"
+        class="flex-1 p-2 border rounded-lg"
       />
-    </button>
+      <input
+        type="number"
+        bind:value={cost}
+        class="flex-1 p-2 border rounded-lg max-w-32"
+        placeholder="Cost $"
+        min="0"
+      />
+      <Projects {projects} bind:project />
+
+      <Labels {labels} bind:Selectedlabels />
+    </div>
+
+    <div class="flex justify-between items-center space-x-4">
+      {#if onlyTime}
+        <div>
+          {#if running}
+            {new Date(elapsedTime).toISOString().slice(11, 19)}
+          {:else}
+            00:00:00
+          {/if}
+        </div>
+      {:else}
+        <div class="flex items-center space-x-1">
+          <input
+            type="time"
+            bind:value={startTime}
+            class="p-2 border rounded-lg"
+          />
+          <span>-</span>
+
+          <input
+            type="time"
+            bind:value={stopTime}
+            class="p-2 border rounded-lg"
+          />
+
+          <input
+            type="date"
+            bind:value={startDate}
+            class="p-2 border rounded-lg"
+            max={format(new Date(), "yyyy-MM-dd")}
+          />
+          <input
+            type="date"
+            bind:value={stopDate}
+            class="p-2 border rounded-lg"
+            max={format(new Date(), "yyyy-MM-dd")}
+          />
+        </div>
+      {/if}
+      <button
+        on:click={handleClick}
+        class="px-4 py-2 {running
+          ? 'bg-red-500'
+          : 'bg-green-500'} text-white rounded-lg h-fit"
+      >
+        {#if onlyTime}
+          {running ? "Stop" : "Start"}
+        {:else}
+          Save
+        {/if}
+      </button>
+      <button
+        on:click={() => (onlyTime = !onlyTime)}
+        class="block w-fit px-4 py-2 hover:bg-gray-200 hover:rounded-lg"
+      >
+        <Icon
+          icon={onlyTime ? "carbon:calendar" : "carbon:time"}
+          class="w-6 h-6"
+          on:click={() => (onlyTime = !onlyTime)}
+        />
+      </button>
+    </div>
   </div>
 </div>
