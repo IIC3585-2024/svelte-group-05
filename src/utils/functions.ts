@@ -111,7 +111,7 @@ function transformTasksToWeekTotalHours(tasksGroupedByWeek: { [week: string]: Ta
     return Object.keys(tasksGroupedByWeek)
       .sort((a, b) => parseWeekString(a).getTime() - parseWeekString(b).getTime())
       .map(week => {
-        const totalHours = calculateTotalTime(tasksGroupedByWeek[week]) / 3600; // Convert to hours
+        const totalHours = calculateTotalTime(tasksGroupedByWeek[week]) / 3600;
         return {
           week,
           totalHours

@@ -2,32 +2,32 @@
   export let data;
   let { supabase, session } = data;
   $: ({ supabase, session } = data);
-  import { goto } from '$app/navigation';
+  import { goto } from "$app/navigation";
 
   async function handleLogout() {
     await supabase.auth.signOut();
-    goto('/');
+    goto("/");
   }
 </script>
 
 <nav class="bg-white border-b border-gray-200 shadow-sm">
-  <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-    <div class="relative flex items-center justify-between h-16">
-      <div
-        class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start"
-      >
-        <div class="hidden sm:block flex-shrink-0">
-          <a
-            href={session ? "/app/tasks" : "/"}
-            class="text-2xl font-semibold text-gray-800">Taskify</a
-          >
-        </div>
+  <div class="max-w-7xl mx-auto p-4">
+    <div class="relative flex items-center justify-between">
+      <div class="flex-1 flex items-center justify-between px-4">
+        {#if !session}
+          <div>
+            <a
+              href={session ? "/app/tasks" : "/"}
+              class="text-2xl font-semibold text-gray-800">Taskify</a
+            >
+          </div>
+        {/if}
         {#if session}
-          <div class="hidden sm:block sm:ml-6">
-            <div class="flex space-x-4">
+          <div class="flex flex-wrap">
+            <div class="flex lg:space-x-4 mr-4 flex-wrap">
               <a
                 href="/app/tasks"
-                class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
+                class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium mr-4"
                 >Time Tracker</a
               >
               <a
@@ -40,6 +40,8 @@
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
                 >Labels</a
               >
+            </div>
+            <div class="flex space-x-4">
               <a
                 href="/app/calendar"
                 class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
@@ -54,9 +56,7 @@
           </div>
         {/if}
       </div>
-      <div
-        class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0"
-      >
+      <div class="flex pr-2 self-start">
         {#if session}
           <span class="text-gray-600 px-3 py-2 rounded-md text-sm font-medium"
             >Welcome, {session.user.email}</span
@@ -79,31 +79,6 @@
           >
         {/if}
       </div>
-    </div>
-  </div>
-
-  <div class="sm:hidden" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1">
-      <a
-        href="/"
-        class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-        >Time Tracker</a
-      >
-      <a
-        href="/app/projects"
-        class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-        >Projects</a
-      >
-      <a
-        href="/app/labels"
-        class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-        >Labels</a
-      >
-      <a
-        href="/app/calendar"
-        class="text-gray-600 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-        >Calendar</a
-      >
     </div>
   </div>
 </nav>

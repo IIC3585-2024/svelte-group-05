@@ -23,15 +23,15 @@
   onMount(cyclePhrases);
 </script>
 
-<main class="p-6">
-  <div
-    class="flex flex-row items-center justify-between bg-gray-100 mt-20 flex-wrap md:flex-nowrap px-20"
-  >
-    <div class="text-center w-full">
-      <h1 class="text-5xl lg:text-7xl font-bold text-gray-900 mb-4 text-center">Taskify</h1>
+<main class="py-6">
+  <div class="flex gap-2 flex-wrap justify-around items-center bg-gray-100 px-20">
+    <div class="w-full text-center lg:text-left lg:w-5/12 ml-4">
+      <h1 class="text-5xl lg:text-7xl font-bold text-gray-900 mb-4">
+        Taskify
+      </h1>
       <Typewriter mode="loopOnce">
         <span
-          class="text-2xl lg:text-4xl text-gray-700 text-center w-[200px] whitespace-nowrap"
+          class="text-2xl lg:text-4xl text-gray-700 text-center"
         >
           {currentPhrase}
         </span>
@@ -40,10 +40,10 @@
     <img
       src="/hero.png"
       alt="Taskify"
-      class="w-11/12 sm:w-3/4 md:w-1/2 lg:w-5/12 my-10"
+      class="w-10/12 md:w-7/12 lg:w-6/12 my-10"
     />
   </div>
-  <p class="mt-20 text-lg text-gray-700 mb-6 text-center">
+  <p class="w-full mt-4 text-lg text-gray-700 mb-6 text-center">
     <span>
       <a href="/login" class="text-blue-500 hover:underline">Log in</a> or
       <a href="/signup" class="text-blue-500 hover:underline">Sign up</a> to get
