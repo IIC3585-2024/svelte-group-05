@@ -20,40 +20,25 @@
   function deleteTask() {
     tasks.delete(task.id);
   }
-
-  function updateTask() {
-    // Function to handle task update
-    console.log("Update task:", task);
-  }
-
-  let menuOpen = false;
-
-  function toggleMenu() {
-    menuOpen = !menuOpen;
-    if (menuOpen) {
-      document.addEventListener("click", handleClickOutside, true);
-    } else {
-      document.removeEventListener("click", handleClickOutside, true);
-    }
-  }
 </script>
 
-<div class="p-6 bg-white rounded-lg shadow-md">
-  <div class="flex items-center space-x-4 mb-4">
+<div
+  class="flex flex-wrap content-start justify-between items-center gap-4 p-6 bg-white rounded-lg shadow-md"
+>
+  <div class="flex flex-start items-center gap-4">
     <p class="flex-1 p-2">
       {name}
     </p>
-    <UsedTaskLabels task={task} labels={labels} tasksLabels={$tasksLabels} />
-    <Cost task={task} />
+    <UsedTaskLabels {task} {labels} tasksLabels={$tasksLabels} />
+    <Cost {task} />
     <Projects projects={possibleProjects} bind:project disabled={true} />
-
-    <!-- <Labels {possibleLabels} bind:labels /> -->
-
-    <div>
+  </div>
+  <div class="flex flex-wrap content-start items-center gap-4">
+    <div class="flex justify-center flex-wrap items-center gap-2">
       <span>
         {startTime}
       </span>
-      -
+
       <span>
         {stopTime}
       </span>
@@ -61,20 +46,23 @@
 
     <div class="border-r border-gray-300 h-6 border-1" />
 
-    <input
-      type="date"
-      bind:value={startDate}
-      class="p-2 border rounded-lg"
-      disabled
-    />
-    <input
-      type="date"
-      bind:value={stopDate}
-      class="p-2 border rounded-lg"
-      disabled
-    />
-
-    <div class="flex items-center space-x-2">
+    <div class="flex justify-center flex-wrap items-center gap-2">
+      <input
+        type="date"
+        bind:value={startDate}
+        class="p-2 border rounded-lg"
+        disabled
+      />
+      <input
+        type="date"
+        bind:value={stopDate}
+        class="p-2 border rounded-lg"
+        disabled
+      />
+    </div>
+  </div>
+  <div class="flex justify-center items-center gap-2 flex-wrap content-start">
+    <div class="flex items-center space-2">
       <span class="text-xl font-bold">
         {formatTotalTime(calculateTotalTime([task]))}
       </span>

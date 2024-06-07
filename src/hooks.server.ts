@@ -1,3 +1,4 @@
+// Toda el auth se realizó a partir de las docs de supabase https://supabase.com/docs/guides/auth/server-side/sveltekit
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public'
 import { createServerClient } from '@supabase/ssr'
 import type { Handle } from '@sveltejs/kit'

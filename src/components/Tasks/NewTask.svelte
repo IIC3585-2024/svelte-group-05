@@ -88,15 +88,15 @@
     };
 
     await tasks.add(newTask);
-    await addLabelsToTask();
+    addLabelsToTask();
 
     clear();
   }
 </script>
 
-<div class="p-6 bg-white rounded-lg shadow-md">
-  <div class="flex justify-between items-center space-x-2 mb-4 flex-wrap">
-    <div class="flex justify-between items-center space-x-2">
+<div class="flex justify-between p-6 bg-white rounded-lg shadow-md flex-shrink-0 flex-wrap lg:flex-nowrap gap-2">
+  <div class="flex justify-between items-center space-x-2">
+    <div class="flex flex-wrap gap-2">
       <input
         type="text"
         bind:value={name}
@@ -110,35 +110,39 @@
         placeholder="Cost $"
         min="0"
       />
+    </div>
+    <div class="flex flex-wrap gap-2">
       <Projects {projects} bind:project />
 
       <Labels {labels} bind:Selectedlabels />
     </div>
+  </div>
 
-    <div class="flex justify-between items-center space-x-4">
-      {#if onlyTime}
-        <div>
-          {#if running}
-            {new Date(elapsedTime).toISOString().slice(11, 19)}
-          {:else}
-            00:00:00
-          {/if}
-        </div>
-      {:else}
-        <div class="flex items-center space-x-1">
+  <div class="flex justify-between items-center space-x-2">
+    {#if onlyTime}
+      <div>
+        {#if running}
+          {new Date(elapsedTime).toISOString().slice(11, 19)}
+        {:else}
+          00:00:00
+        {/if}
+      </div>
+    {:else}
+      <div class="flex">
+        <div class="flex flex-wrap items-center gap-2">
           <input
             type="time"
             bind:value={startTime}
             class="p-2 border rounded-lg"
           />
-          <span>-</span>
 
           <input
             type="time"
             bind:value={stopTime}
             class="p-2 border rounded-lg"
           />
-
+        </div>
+        <div class="flex flex-wrap gap-2">
           <input
             type="date"
             bind:value={startDate}
@@ -152,29 +156,29 @@
             max={format(new Date(), "yyyy-MM-dd")}
           />
         </div>
+      </div>
+    {/if}
+    <button
+      on:click={handleClick}
+      class="px-4 py-2 {running
+        ? 'bg-red-500'
+        : 'bg-green-500'} text-white rounded-lg h-fit"
+    >
+      {#if onlyTime}
+        {running ? "Stop" : "Start"}
+      {:else}
+        Save
       {/if}
-      <button
-        on:click={handleClick}
-        class="px-4 py-2 {running
-          ? 'bg-red-500'
-          : 'bg-green-500'} text-white rounded-lg h-fit"
-      >
-        {#if onlyTime}
-          {running ? "Stop" : "Start"}
-        {:else}
-          Save
-        {/if}
-      </button>
-      <button
+    </button>
+    <button
+      on:click={() => (onlyTime = !onlyTime)}
+      class="block w-fit px-4 py-2 hover:bg-gray-200 hover:rounded-lg"
+    >
+      <Icon
+        icon={onlyTime ? "carbon:calendar" : "carbon:time"}
+        class="w-6 h-6"
         on:click={() => (onlyTime = !onlyTime)}
-        class="block w-fit px-4 py-2 hover:bg-gray-200 hover:rounded-lg"
-      >
-        <Icon
-          icon={onlyTime ? "carbon:calendar" : "carbon:time"}
-          class="w-6 h-6"
-          on:click={() => (onlyTime = !onlyTime)}
-        />
-      </button>
-    </div>
+      />
+    </button>
   </div>
 </div>

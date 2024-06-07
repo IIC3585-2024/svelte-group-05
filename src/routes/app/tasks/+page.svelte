@@ -9,8 +9,8 @@
   $: ({ session } = data);
 </script>
 
-<main class="p-6">
-  <div class="container mx-auto">
+<main class="py-6 flex flex-col items-center">
+  <div class="container mx-10">
     <NewTask {session} />
     <TaskList tasks={$tasks} />
   </div>

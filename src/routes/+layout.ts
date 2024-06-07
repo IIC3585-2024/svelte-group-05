@@ -1,3 +1,4 @@
+// Toda el auth se realizó a partir de las docs de supabase https://supabase.com/docs/guides/auth/server-side/sveltekit
 import { tasks } from "../stores/tasks";
 import { projects } from "../stores/projects";
 import { labels } from "../stores/labels";
