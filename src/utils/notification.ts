@@ -1,3 +1,5 @@
+// funciones extraido de: https://svelte.dev/repl/2254c3b9b9ba4eeda05d81d2816f6276?version=4.2.17
+
 import { writable, derived } from "svelte/store"
 
 const TIMEOUT = 3000

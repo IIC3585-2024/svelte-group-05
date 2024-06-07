@@ -6,7 +6,7 @@
   import Toast from "../components/Shared/Toast.svelte";
 
   export let data;
-  
+
   let { supabase, session } = data;
   $: ({ supabase, session } = data);
 
@@ -20,6 +20,10 @@
     return () => data.subscription.unsubscribe();
   });
 </script>
+
+<svelte:head>
+  <title>Taskify</title>
+</svelte:head>
 
 <Navbar {data} />
 <Toast />
