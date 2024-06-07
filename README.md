@@ -19,6 +19,12 @@ bun run build
 
 You can preview the production build with `bun run preview`.
 
+
 ## Production Link
 
 https://taskify4u.netlify.app/
+
+## Tools used
+
+- Copilot
+- Chatgpt
