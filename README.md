@@ -3,6 +3,12 @@
 ## Requirements
 - Bun
 
+## Setup
+
+```bash
+bun install
+```
+
 ## Developing
 
 ```bash
